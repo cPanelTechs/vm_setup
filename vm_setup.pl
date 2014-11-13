@@ -18,12 +18,12 @@ GetOptions (
       "fast" => \$fast,
 );
 
-if(!$full)
+if($full)
 {
     print "--full passed. Passing y to all optional setup options.\n";
     chomp ($answer="y");
 }
-if(!$fast)
+if($fast)
 {
     print "--fast passed. Skipping all optional setup options.\n";
     chomp ($answer="n");
@@ -143,7 +143,7 @@ if ($answer eq "y") {
 }
 
 # running another check_cpanel_rpms
-print "would you like to run check_cpanel_rpms now? [n] "
+print "would you like to run check_cpanel_rpms now? [n] ";
 if (!$full && !$fast) { 
     chomp ($answer = <STDIN>);
 }
