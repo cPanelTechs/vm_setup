@@ -134,7 +134,7 @@ system_formatted ("/usr/local/cpanel/bin/dbmaptool cptest --type mysql --dbusers
 
 # upcp
 print "would you like to run upcp now? [n] ";
-chomp ($answer = <STDIN>) if (!$full || $fast);
+if (!$full || !$fast) { chomp ($answer = <STDIN>) }
 if ($answer eq "y") {
     print "\nrunning upcp \n ";
     system_formatted ('/scripts/upcp');
@@ -142,7 +142,7 @@ if ($answer eq "y") {
 
 # running another check_cpanel_rpms
 print "would you like to run check_cpanel_rpms now? [n] "
-chomp ($answer = <STDIN>) if (!$full || !$fast);
+if (!$full || !$fast) { chomp ($answer = <STDIN>) }
 if ($answer eq "y") {
     print "\nrunning check_cpanel_rpms \n ";
     system_formatted ('/scripts/check_cpanel_rpms --fix');
@@ -150,7 +150,7 @@ if ($answer eq "y") {
 
 # install Task::Cpanel::Core
 print "would you like to install Task::Cpanel::Core? [n] ";
-chomp ($answer = <STDIN>) if (!$full || !$fast);
+if (!$full || !$fast) { chomp ($answer = <STDIN>) }
 if ($answer eq "y") {
     print "\ninstalling Task::Cpanel::Core\n ";
     system_formatted ('/scripts/perlinstaller Task::Cpanel::Core');
