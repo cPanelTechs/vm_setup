@@ -11,10 +11,28 @@ $| = 1;
 my $VERSION = '0.1.9';
 
 # get opts
-my ($ip, $natip, $help);
-GetOptions ("help" => \$help);
+my ($ip, $natip, $help, $fast, $full, $answer);
+GetOptions (
+      "help" => \$help,
+      "full" => \$full,
+      "fast" => \$fast,
+);
+
+if(!$full)
+{
+    print "--full passed. Passing y to all optional setup options.\n";
+    chomp ($answer="y");
+}
+if(!$fast)
+{
+    print "--fast passed. Skipping all optional setup options.\n";
+    chomp ($answer="n");
+}
+
+
 print "usage: " . "perl vm_setup.pl \n\n" if ($help);
 exit if ($help);
+
 
 
 ### and go
@@ -116,22 +134,25 @@ system_formatted ("/usr/local/cpanel/bin/dbmaptool cptest --type mysql --dbusers
 
 # upcp
 print "would you like to run upcp now? [n] ";
-chomp (my $answer = <STDIN>);
+chomp ($answer = <STDIN>) if (!$full || $fast);
 if ($answer eq "y") {
+    print "\nrunning upcp \n ";
     system_formatted ('/scripts/upcp');
 }
 
 # running another check_cpanel_rpms
-print "would you like to run check_cpanel_rpms now? [n] ";
-chomp ($answer = <STDIN>);
+print "would you like to run check_cpanel_rpms now? [n] "
+chomp ($answer = <STDIN>) if (!$full || !$fast);
 if ($answer eq "y") {
+    print "\nrunning check_cpanel_rpms \n ";
     system_formatted ('/scripts/check_cpanel_rpms --fix');
 }
 
 # install Task::Cpanel::Core
 print "would you like to install Task::Cpanel::Core? [n] ";
-chomp ($answer = <STDIN>);
+chomp ($answer = <STDIN>) if (!$full || !$fast);
 if ($answer eq "y") {
+    print "\ninstalling Task::Cpanel::Core\n ";
     system_formatted ('/scripts/perlinstaller Task::Cpanel::Core');
 }
 
