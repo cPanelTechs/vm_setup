@@ -8,7 +8,7 @@ use Getopt::Long;
 use Fcntl;
 $| = 1;
 
-my $VERSION = '0.2.0';
+my $VERSION = '0.2.1';
 
 # get opts
 my ($ip, $natip, $help, $fast, $full, $answer);
@@ -18,7 +18,10 @@ GetOptions (
       "fast" => \$fast,
 );
 
-
+# print header
+print "\nserver setup script\n" .
+      "version $VERSION\n" .
+      "\n\n";
 print "Usage: perl vm_setup.pl [options]\n\n" if ($help);
 print "Description: Performs a number of functions to prepare meteorologist VMs for immediate use. \n\n" if ($help);
 print "Options: \n" if ($help);
@@ -44,10 +47,6 @@ exit if ($help);
 
 
 ### and go
-# print header
-print "server setup script\n" .
-      "version $VERSION\n" .
-      "\n\n";
       
 if($full)
 {
