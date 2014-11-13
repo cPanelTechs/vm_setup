@@ -19,31 +19,32 @@ GetOptions (
 );
 
 # print header
-print "\nserver setup script\n" .
-      "version $VERSION\n" .
-      "\n\n";
-print "Usage: perl vm_setup.pl [options]\n\n" if ($help);
-print "Description: Performs a number of functions to prepare meteorologist VMs for immediate use. \n\n" if ($help);
-print "Options: \n" if ($help);
-print "-------------- \n" if ($help);
-print "--fast: Skips all optional setup functions\n" if ($help);
-print "--full: Passes yes to all optional setup functions \n\n" if ($help);
-print "Full list of things this does: \n" if ($help);
-print "-------------- \n" if ($help);
-print "- Installs common packages\n" if ($help);
-print "- Sets hostname\n" if ($help);
-print "- Sets resolvers\n" if ($help);
-print "- Builds /var/cpanel/cpnat\n" if ($help);
-print "- Performs basic setup wizard\n" if ($help);
-print "- Fixes /etc/host\n" if ($help);
-print "- Fixes screen permissions\n" if ($help);
-print "- Runs cpkeyclt\n" if ($help);
-print "- Creates a test accounts\n" if ($help);
-print "- Runs upcp (optional)\n" if ($help);
-print "- Runs check_cpanel_rpms --fix (optional)\n" if ($help);
-print "- Installs Task::Cpanel::Core (optional)\n\n" if ($help);
-exit if ($help);
-
+print "\nVM Server Setup Script\n" .
+      "Version: $VERSION\n" .
+      "\n";
+if ($help) {
+    print "Usage: perl vm_setup.pl [options]\n\n";
+    print "Description: Performs a number of functions to prepare meteorologist VMs for immediate use. \n\n";
+    print "Options: \n";
+    print "-------------- \n";
+    print "--fast: Skips all optional setup functions\n";
+    print "--full: Passes yes to all optional setup functions \n\n";
+    print "Full list of things this does: \n";
+    print "-------------- \n";
+    print "- Installs common packages\n";
+    print "- Sets hostname\n";
+    print "- Sets resolvers\n";
+    print "- Builds /var/cpanel/cpnat\n";
+    print "- Performs basic setup wizard\n";
+    print "- Fixes /etc/host\n";
+    print "- Fixes screen permissions\n";
+    print "- Runs cpkeyclt\n";
+    print "- Creates a test accounts\n";
+    print "- Runs upcp (optional)\n";
+    print "- Runs check_cpanel_rpms --fix (optional)\n";
+    print "- Installs Task::Cpanel::Core (optional)\n\n";
+    exit;
+}
 
 
 ### and go
