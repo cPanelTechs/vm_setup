@@ -8,7 +8,7 @@ use Getopt::Long;
 use Fcntl;
 $| = 1;
 
-my $VERSION = '0.1.9';
+my $VERSION = '0.2.0';
 
 # get opts
 my ($ip, $natip, $help, $fast, $full, $answer);
@@ -18,19 +18,27 @@ GetOptions (
       "fast" => \$fast,
 );
 
-if($full)
-{
-    print "--full passed. Passing y to all optional setup options.\n";
-    chomp ($answer="y");
-}
-if($fast)
-{
-    print "--fast passed. Skipping all optional setup options.\n";
-    chomp ($answer="n");
-}
 
-
-print "usage: " . "perl vm_setup.pl \n\n" if ($help);
+print "Usage: perl vm_setup.pl [options]\n\n" if ($help);
+print "Description: Performs a number of functions to prepare meteorologist VMs for immediate use. \n\n" if ($help);
+print "Options: \n" if ($help);
+print "-------------- \n" if ($help);
+print "--fast: Skips all optional setup functions\n" if ($help);
+print "--full: Passes yes to all optional setup functions \n\n" if ($help);
+print "Full list of things this does: \n" if ($help);
+print "-------------- \n" if ($help);
+print "- Installs common packages\n" if ($help);
+print "- Sets hostname\n" if ($help);
+print "- Sets resolvers\n" if ($help);
+print "- Builds /var/cpanel/cpnat\n" if ($help);
+print "- Performs basic setup wizard\n" if ($help);
+print "- Fixes /etc/host\n" if ($help);
+print "- Fixes screen permissions\n" if ($help);
+print "- Runs cpkeyclt\n" if ($help);
+print "- Creates a test accounts\n" if ($help);
+print "- Runs upcp (optional)\n" if ($help);
+print "- Runs check_cpanel_rpms --fix (optional)\n" if ($help);
+print "- Installs Task::Cpanel::Core (optional)\n\n" if ($help);
 exit if ($help);
 
 
@@ -39,7 +47,18 @@ exit if ($help);
 # print header
 print "server setup script\n" .
       "version $VERSION\n" .
-      "\n";
+      "\n\n";
+      
+if($full)
+{
+    print "--full passed. Passing y to all optional setup options.\n\n";
+    chomp ($answer="y");
+}
+if($fast)
+{
+    print "--fast passed. Skipping all optional setup options.\n\n";
+    chomp ($answer="n");
+}
 
 # check for and install prereqs
 print "installing utilities via yum [mtr nmap telnet bind-utils jwhois dev git]\n";
